@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         view = (SwipeItemView) findViewById(R.id.customView);
 
         View topView = new View(this);
-        view.setBottomContent(topView);
+        view.setTopContent(topView);
 
         View bottomView = new View(this);
         view.setBottomContent(bottomView);
