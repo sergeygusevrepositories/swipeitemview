@@ -26,8 +26,8 @@ import android.widget.ScrollView;
 public class SwipeItemView extends FrameLayout
         implements GestureDetector.OnGestureListener {
 
-    private View mTopView;
-    private View mBottomView;
+    private FrameLayout mTopView;
+    private FrameLayout mBottomView;
 
     private GestureDetectorCompat mGestureDetectorCompat;
 
@@ -38,8 +38,8 @@ public class SwipeItemView extends FrameLayout
 
     public SwipeItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mTopView = new View(getContext());
-        mBottomView = new View(getContext());
+        mTopView = new FrameLayout(getContext());
+        mBottomView = new FrameLayout(getContext());
 
         LayoutParams params = new LayoutParams(
                 LayoutParams.MATCH_PARENT,
@@ -48,14 +48,25 @@ public class SwipeItemView extends FrameLayout
         mTopView.setLayoutParams(params);
         mBottomView.setLayoutParams(params);
 
-        ViewCompat.setBackground(mTopView, new ColorDrawable(Color.RED));
-        ViewCompat.setBackground(mBottomView, new ColorDrawable(Color.GREEN));
-
         addView(mBottomView);
         addView(mTopView);
 
 
         mGestureDetectorCompat = new GestureDetectorCompat(getContext(), this);
+    }
+
+    public void setTopContent(View view) {
+        LayoutParams params = new LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
+        mTopView.addView(view, params);
+    }
+
+    public void setBottomContent(View view) {
+        LayoutParams params = new LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
+        mBottomView.addView(view, params);
     }
 
     private boolean isLeftDirection = false;
@@ -102,7 +113,6 @@ public class SwipeItemView extends FrameLayout
 
         Log.d(SwipeItemView.class.getSimpleName(),
                 "startX " + motionEvent.getX() + " currentX: " + motionEvent1.getX());
-
 
         if(motionEvent1.getX() < (mTopView.getMeasuredWidth() / 2)) {
             mTopView.setX(motionEvent1.getX());
