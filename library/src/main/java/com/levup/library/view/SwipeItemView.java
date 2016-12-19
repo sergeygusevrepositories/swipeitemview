@@ -1,23 +1,13 @@
 package com.levup.library.view;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ScrollView;
 
 /**
  * Created by java on 14.12.2016.
@@ -33,11 +23,15 @@ public class SwipeItemView extends FrameLayout
 
     public SwipeItemView(Context context) {
         super(context);
-        mGestureDetectorCompat = new GestureDetectorCompat(getContext(), this);
+        init();
     }
 
     public SwipeItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
+    }
+
+    private void init() {
         mTopView = new FrameLayout(getContext());
         mBottomView = new FrameLayout(getContext());
 
@@ -50,7 +44,7 @@ public class SwipeItemView extends FrameLayout
 
         addView(mBottomView);
         addView(mTopView);
-
+        setClickable(true);
 
         mGestureDetectorCompat = new GestureDetectorCompat(getContext(), this);
     }
